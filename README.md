@@ -1,9 +1,5 @@
 # latex-matrix-generator
 
-App to help generate matrices in LaTeX
+App to help generate matrices in LaTeX.
 
-TODO: Make column / row labels and if you click them it clears
-TODO: Button to fill with indice stuff (matrix name included)
-TODO: Copy and paste stuff for common symbols
-TODO: Fraction support
-TODO: Buttons to auto copy from the latex output
+TODO: Test on other screen sizes (Made for a 3840x2160 display)

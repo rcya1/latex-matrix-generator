@@ -38,7 +38,6 @@ function getFix(matrixType, isBeginning) {
 function convertToLatex(data, numRows, numCols, matrixType) {
     let code = "";
 
-    // code += "\\begin{pmatrix}\n";
     code += getFix(matrixType, true);
     for(let r = 0; r < numRows; r++) {
         for(let c = 0; c < numCols; c++) {
@@ -47,7 +46,7 @@ function convertToLatex(data, numRows, numCols, matrixType) {
                 code += " & ";
             }
         }
-        code += "\\\\ \n";
+        code += " \\\\ \n";
     }
     code += getFix(matrixType, false);
 
@@ -59,7 +58,7 @@ function Cell(props) {
         <input className=" " onFocus={(e) => e.target.select()} style={{
             width: "50px",
             height: "40px",
-            fontSize: "18px"
+            fontSize: "14px"
         }} value={props.value} onChange={props.onChange}></input>
     );
 }
@@ -70,10 +69,18 @@ function App() {
     const [matrixData, setMatrixData] = useState([['', '', ''], ['', '', ''], ['', '', '']]);
     const [matrixType, setMatrixType] = useState("parentheses");
     const [rightAlign, setRightAlign] = useState(false);
+    const [matrixName, setMatrixName] = useState("A");
     
     let tableData = [];
     for(let r = 0; r < numRows; r++) {
-        let rowData = [];
+        let rowData = [<th className="text-end pe-3" onClick={() => {
+            let dataCopy = [];
+            for (var i = 0; i < matrixData.length; i++) {
+                dataCopy[i] = matrixData[i].slice();
+            }
+            dataCopy[r] = new Array(numCols).fill('');
+            setMatrixData(dataCopy);
+        }} style={{width: "50px", height: "40px", cursor: "not-allowed"}}>{r + 1}</th>];
         for(let c = 0; c < numCols; c++) {
             rowData.push(<td>
                 <Cell value={matrixData[r][c]} onChange={(e) => {
@@ -90,6 +97,8 @@ function App() {
             {rowData}
         </tr>);
     }
+
+    let latexCode = convertToLatex(matrixData, numRows, numCols, matrixType + (rightAlign ? "_right" : ""));
 
     function updateRows(newNumRows) {
         if(matrixData.length < newNumRows) {
@@ -163,6 +172,25 @@ function App() {
                     <Row>
                         <Col xs={9}>
                             <table className="mx-auto">
+                                <thead className="text-center" style={{fontSize: "0.9rem"}}>
+                                    <tr>
+                                        <th></th>
+                                        {
+                                            Array(numCols).fill(0).map((value, index) => {
+                                                return <th style={{cursor: "not-allowed"}}className="pb-1" onClick={() => {
+                                                    let dataCopy = [];
+                                                    for (var i = 0; i < matrixData.length; i++) {
+                                                        dataCopy[i] = matrixData[i].slice();
+                                                    }
+                                                    for(let r = 0; r < numRows; r++) {
+                                                        dataCopy[r][index] = '';
+                                                    }
+                                                    setMatrixData(dataCopy);
+                                                }}>{index+1}</th>
+                                            })
+                                        }
+                                    </tr>
+                                </thead>
                                 <tbody>
                                     {tableData}
                                 </tbody>
@@ -183,6 +211,11 @@ function App() {
                                         setRightAlign(e.target.checked);
                                     }}/>
                                 </Form.Group>
+                                <Button variant="success" className="mb-3" onClick = {() => {
+                                    navigator.clipboard.writeText(latexCode);
+                                }}>
+                                    Copy LaTeX
+                                </Button>
                                 <Button className="mb-3" variant="danger" onClick = {() => {
                                     let dataCopy = [];
                                     for(let r = 0; r < numRows; r++) {
@@ -190,12 +223,33 @@ function App() {
                                     }
                                     setMatrixData(dataCopy);
                                 }}>Clear Matrix</Button>
+                                <hr/>
+                                <Form className="d-flex mb-3">
+                                    <Form.Label className="me-3 my-auto align-middle">Name: </Form.Label>
+                                    <Form.Control type="input" value={matrixName} onChange={(e) => {
+                                        setMatrixName(e.target.value)
+                                    }} style={{width: "75px"}}/>
+                                </Form>
+                                <Button className="mb-3" variant="success" onClick = {() => {
+                                    let dataCopy = [];
+                                    for (var i = 0; i < matrixData.length; i++) {
+                                        dataCopy[i] = matrixData[i].slice();
+                                    }
+
+                                    for(let r = 0; r < numRows; r++) {
+                                        for(let c = 0; c < numCols; c++) {
+                                            dataCopy[r][c] = matrixName + "_{" + (r + 1) + "" + (c + 1) + "}";
+                                        }
+                                    }
+
+                                    setMatrixData(dataCopy);
+                                }}>Set Indices</Button>
                             </div>
                         </Col>
                     </Row>
                 </Col>
                 <Col xs={6}>
-                    <textarea readOnly className="d-block w-50 mx-auto" value={convertToLatex(matrixData, numRows, numCols, matrixType + (rightAlign ? "_right" : ""))} 
+                    <textarea readOnly className="d-block w-50 mx-auto" value={latexCode} 
                         style={{height: "300px", fontSize: "14px"}}/>
                 </Col>
             </Row>
