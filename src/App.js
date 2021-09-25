@@ -38,7 +38,7 @@ function getFix(matrixType, isBeginning) {
 function convertToLatex(data, numRows, numCols, matrixType) {
     let code = "";
 
-    code += getFix(matrixType, true);
+    if(matrixType != "none") code += getFix(matrixType, true);
     for(let r = 0; r < numRows; r++) {
         for(let c = 0; c < numCols; c++) {
             code += data[r][c];
@@ -48,7 +48,7 @@ function convertToLatex(data, numRows, numCols, matrixType) {
         }
         code += " \\\\ \n";
     }
-    code += getFix(matrixType, false);
+    if(matrixType != "none") code += getFix(matrixType, false);
 
     return code;
 }
@@ -205,6 +205,7 @@ function App() {
                                     <option value="brackets">Brackets</option>
                                     <option value="determinant">Determinant</option>
                                     <option value="ddeterminant">DDeterminant</option>
+                                    <option value="none">None</option>
                                 </Form.Control>
                                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
                                     <Form.Check type="checkbox" label="Right Align" checked={rightAlign} onClick={(e) => {
