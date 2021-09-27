@@ -38,7 +38,7 @@ function getFix(matrixType, isBeginning) {
 function convertToLatex(data, numRows, numCols, matrixType) {
     let code = "";
 
-    if(matrixType.substring(4) != "none") code += getFix(matrixType, true);
+    if(matrixType.substring(0, 4) != "none") code += getFix(matrixType, true);
     for(let r = 0; r < numRows; r++) {
         for(let c = 0; c < numCols; c++) {
             code += data[r][c];
@@ -48,7 +48,7 @@ function convertToLatex(data, numRows, numCols, matrixType) {
         }
         code += " \\\\ \n";
     }
-    if(matrixType.substring(4) != "none") code += getFix(matrixType, false);
+    if(matrixType.substring(0, 4) != "none") code += getFix(matrixType, false);
 
     return code;
 }
