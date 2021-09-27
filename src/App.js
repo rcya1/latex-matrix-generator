@@ -38,7 +38,7 @@ function getFix(matrixType, isBeginning) {
 function convertToLatex(data, numRows, numCols, matrixType) {
     let code = "";
 
-    if(matrixType != "none") code += getFix(matrixType, true);
+    if(matrixType.substring(4) != "none") code += getFix(matrixType, true);
     for(let r = 0; r < numRows; r++) {
         for(let c = 0; c < numCols; c++) {
             code += data[r][c];
@@ -48,7 +48,7 @@ function convertToLatex(data, numRows, numCols, matrixType) {
         }
         code += " \\\\ \n";
     }
-    if(matrixType != "none") code += getFix(matrixType, false);
+    if(matrixType.substring(4) != "none") code += getFix(matrixType, false);
 
     return code;
 }
@@ -68,7 +68,7 @@ function App() {
     const [numCols, setNumCols] = useState(3);
     const [matrixData, setMatrixData] = useState([['', '', ''], ['', '', ''], ['', '', '']]);
     const [matrixType, setMatrixType] = useState("parentheses");
-    const [rightAlign, setRightAlign] = useState(false);
+    const [rightAlign, setRightAlign] = useState(true);
     const [matrixName, setMatrixName] = useState("A");
     
     let tableData = [];
