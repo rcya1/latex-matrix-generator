@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/latex-matrix-generator/static/css/main.a617e044.chunk.css",
-    "main.js": "/latex-matrix-generator/static/js/main.9bec6491.chunk.js",
-    "main.js.map": "/latex-matrix-generator/static/js/main.9bec6491.chunk.js.map",
+    "main.js": "/latex-matrix-generator/static/js/main.a93ee706.chunk.js",
+    "main.js.map": "/latex-matrix-generator/static/js/main.a93ee706.chunk.js.map",
     "runtime-main.js": "/latex-matrix-generator/static/js/runtime-main.9bc668fa.js",
     "runtime-main.js.map": "/latex-matrix-generator/static/js/runtime-main.9bc668fa.js.map",
     "static/css/2.f2512455.chunk.css": "/latex-matrix-generator/static/css/2.f2512455.chunk.css",
@@ -18,6 +18,6 @@
     "static/css/2.f2512455.chunk.css",
     "static/js/2.808afd25.chunk.js",
     "static/css/main.a617e044.chunk.css",
-    "static/js/main.9bec6491.chunk.js"
+    "static/js/main.a93ee706.chunk.js"
   ]
 }
