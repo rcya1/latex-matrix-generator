@@ -1,6 +1,6 @@
-# latex-matrix-generator
+# LaTeX Matrix Generator
 
-App to help generate matrices in LaTeX.
+Web app build with React.js to help generate matrices in LaTeX. The LaTeX packages `amsmath` and `mathtools` are required to make the generated code work in your LaTeX project. 
 
-TODO: Test on other screen sizes (Made for a 3840x2160 display)
 TODO: Arrow keys to move between adjacent cells
+TODO: Transpose button
