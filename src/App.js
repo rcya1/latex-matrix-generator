@@ -156,7 +156,7 @@ function App() {
         <Container className="mb-5">
             <h1 className="text-center mt-3">LaTeX Matrix Generator</h1>
             <h6 className="text-center mx-auto text-secondary">The LaTeX packages amsmath and mathtools are required to use generated code.</h6>
-            <div className="w-50 mx-auto mt-5">
+            <div className="w-50 mx-auto mt-3">
                 <NumberSelector
                     name="Rows"
                     value={numRows}
@@ -212,7 +212,7 @@ function App() {
                                 <option value="ddeterminant">DDeterminant</option>
                                 <option value="none">None</option>
                             </Form.Control>
-                            <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                            <Form.Group className="" controlId="formBasicCheckbox">
                                 <Form.Check type="checkbox" label="Right Align" checked={rightAlign} onClick={(e) => {
                                     setRightAlign(e.target.checked);
                                 }}/>
@@ -223,7 +223,7 @@ function App() {
                             }}>
                                 Copy LaTeX
                             </Button>{' '}
-                            <Button className="mb-3 mx-auto" style={{maxWidth: "max(8em, 50%)"}} variant="danger" block={false} onClick = {() => {
+                            <Button className="mx-auto" style={{maxWidth: "max(8em, 50%)"}} variant="danger" block={false} onClick = {() => {
                                 let dataCopy = [];
                                 for(let r = 0; r < numRows; r++) {
                                     dataCopy.push(new Array(numCols).fill(''));
@@ -237,7 +237,7 @@ function App() {
                                     setMatrixName(e.target.value)
                                 }} style={{maxWidth: "5em"}}/>
                             </Form>
-                            <Button className="mb-3 mx-auto" style={{maxWidth: "max(8em, 50%)"}} variant="success" block={false}  onClick = {() => {
+                            <Button className="mx-auto" style={{maxWidth: "max(8em, 50%)"}} variant="success" block={false}  onClick = {() => {
                                 let dataCopy = [];
                                 for (var i = 0; i < matrixData.length; i++) {
                                     dataCopy[i] = matrixData[i].slice();
@@ -250,7 +250,22 @@ function App() {
                                 }
 
                                 setMatrixData(dataCopy);
-                            }}>Set Indices</Button>{' '}
+                            }}>Set Indices</Button>
+                            <hr/>
+                            <Button className="mx-auto" style={{maxWidth: "max(8em, 50%)"}} variant="success" block={false}  onClick = {() => {
+                                let dataCopy = [];
+                                for (var i = 0; i < matrixData[0].length; i++) {
+                                    dataCopy.push([]);
+                                    for(var j = 0; j < matrixData.length; j++) {
+                                        dataCopy[i].push(matrixData[j][i]);
+                                    }
+                                }
+
+                                let temp = numRows;
+                                setNumRows(numCols);
+                                setNumCols(temp);
+                                setMatrixData(dataCopy);
+                            }}>Transpose</Button>
                         </Card.Body>
                     </Card>
                 </Col>
@@ -258,6 +273,9 @@ function App() {
             <Row>
                 <textarea readOnly className="d-block w-50 mx-auto" value={latexCode} 
                     style={{height: "20em"}}/>
+            </Row>
+            <Row className="mt-5">
+                <p>Made by <a href="https://github.com/Ryan10145/">Ryan Chang</a> with React.js and react-bootstrap</p>
             </Row>
         </Container>
     );
